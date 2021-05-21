@@ -1,16 +1,24 @@
-import { Link, routes } from '@redwoodjs/router'
+// import { Link, routes } from '@redwoodjs/router'
+import { Form, TextField, Submit } from '@redwoodjs/forms'
+import { useMapLocation } from 'src/layouts/AppLayout'
+import { navigate, routes } from '@redwoodjs/router'
 
 const HomePage = () => {
+  const { setLocation } = useMapLocation()
+
+  const onSubmit = (data) => {
+    console.log(data)
+    setLocation(data.location)
+    navigate(routes.feed())
+  }
+
   return (
     <>
-      <h1>HomePage</h1>
-      {/* <p>
-        Find me in <code>./web/src/pages/HomePage/HomePage.js</code>
-      </p>
-      <p>
-        My default route is named <code>home</code>, link to me with `
-        <Link to={routes.home()}>Home</Link>`
-      </p> */}
+      <h1>Enter A City</h1>
+      <Form onSubmit={onSubmit}>
+        <TextField name="location" />
+        <Submit>Search</Submit>
+      </Form>
     </>
   )
 }
